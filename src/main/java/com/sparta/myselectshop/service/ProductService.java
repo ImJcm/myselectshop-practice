@@ -47,6 +47,12 @@ public class ProductService {
         return new ProductResponseDto(product);
     }
 
+    /*
+        readOnly = true : 조회를 효율적으로 하기 위해서 = 성능을 높이기위해
+        ProductResponseDto에서 OneToMany  ProductFolder List의 값을 가져오기 때문에
+        지연로딩되어서 트랜잭션환경이 필요하다.?
+    */
+    @Transactional(readOnly = true)
     public Page<ProductResponseDto> getProducts(User user, int page, int size, String sortBy, boolean isAsc) {
         Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
         Sort sort = Sort.by(direction, sortBy);

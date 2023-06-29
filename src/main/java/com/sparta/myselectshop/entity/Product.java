@@ -41,6 +41,7 @@ public class Product extends Timestamped {
     @JoinColumn(name="user_id",nullable = false)
     private User user;
 
+    /* 지연로딩 = fetchType = LAZY - Transaction 환경 필요 */
     @OneToMany(mappedBy = "product")
     private List<ProductFolder> productFolderList = new ArrayList<>();
 
