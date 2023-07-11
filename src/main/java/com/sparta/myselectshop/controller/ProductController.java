@@ -20,8 +20,16 @@ import java.util.List;
 @RequestMapping("/api")
 public class ProductController {
     private final ProductService productService;
-    private final ApiUseTimeRepository apiUseTimeRepository;
 
+
+    @PostMapping("/products")
+    public ProductResponseDto createProduct(@RequestBody ProductRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return productService.createProduct(requestDto, userDetails.getUser());
+    }
+
+    /*
+    private final ApiUseTimeRepository apiUseTimeRepository;
+    //Non Aspect Function
     @PostMapping("/products")
     public ProductResponseDto createProduct(@RequestBody ProductRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         // 측정 시작 시간
@@ -53,7 +61,7 @@ public class ProductController {
             System.out.println("[API Use Time] Username: " + loginUser.getUsername() + ", Total Time: " + apiUseTime.getTotalTime() + " ms");
             apiUseTimeRepository.save(apiUseTime);
         }
-    }
+    }*/
 
     @PutMapping("/products/{id}")
     public ProductResponseDto updateProduct(@PathVariable Long id,@RequestBody ProductMypriceRequestDto productMypriceRequestDto) {
