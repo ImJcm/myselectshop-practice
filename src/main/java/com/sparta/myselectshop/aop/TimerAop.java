@@ -1,4 +1,3 @@
-/*
 package com.sparta.myselectshop.aop;
 
 import com.sparta.myselectshop.entity.ApiUseTime;
@@ -15,34 +14,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-@Slf4j(topic = "UseTimeAop")
-//@Aspect
-//@Component  //Bean Class 적용
+@Slf4j(topic = "UseTimer")
+@Aspect
+@Component
 @RequiredArgsConstructor
-public class UseTimeAop {
-
+public class TimerAop {
     private final ApiUseTimeRepository apiUseTimeRepository;
+    @Pointcut("@annotation(com.sparta.myselectshop.annotation.Timer)")
+    private void enableTimer() {}
 
-    */
-/*public UseTimeAop(ApiUseTimeRepository apiUseTimeRepository) {
-        this.apiUseTimeRepository = apiUseTimeRepository;
-    }*//*
-
-
-    @Pointcut("execution(* com.sparta.myselectshop.controller.ProductController.*(..))")
-    private void product() {}
-    @Pointcut("execution(* com.sparta.myselectshop.controller.FolderController.*(..))")
-    private void folder() {}
-    @Pointcut("execution(* com.sparta.myselectshop.naver.controller.NaverApiController.*(..))")
-    private void naver() {}
-
-    */
-/* aop 적용 *//*
-
-    @Around("product() || folder() || naver()")
-    public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
-        //부가기능 수행 전 - around before
-        // 측정 시작 시간
+    @Around("enableTimer()")
+    public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         long startTime = System.currentTimeMillis();
 
         try {
@@ -78,4 +60,4 @@ public class UseTimeAop {
             }
         }
     }
-}*/
+}
