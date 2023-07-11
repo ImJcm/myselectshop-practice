@@ -55,11 +55,13 @@ public class FolderController {
 
     @ExceptionHandler({IllegalArgumentException.class})
     public ResponseEntity<RestApiException> handleException(IllegalArgumentException ex) {
+        //response로 나오는 결과
         RestApiException restApiException = new RestApiException(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
         return new ResponseEntity<>(
                 // HTTP body
                 restApiException,
                 // HTTP status code
+                // status code = 400
                 HttpStatus.BAD_REQUEST
         );
     }
